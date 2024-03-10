@@ -12,16 +12,28 @@
 <body>
     <div class="container">
         <div class="row">
-            <div class="alert alert-primary">
-                Hello welcome to blog app!
+            <div class="alert d-flex justify-content-between">
+                <span class="w-75">Hello welcome to blog app!</span>
+                <div class="w-25">
+                    <select class="form-select" aria-label="Default select example"
+                        onchange="window.location.href=`/?tag=${this.value}`">
+                        <option disabled>--Select Blog Category--</option>
+                        <option value="" {% if current_tag == '' %}selected{% endif %}>All</option>
+                        {% for i in tags %}
+                        <option value="{{i.id}}" {% if current_tag == i.id|stringformat:"s" %}selected{% endif %}>{{i.name}}</option>
+                        {% endfor %}
+
+                    </select>
+                </div>
             </div>
             {% for i in objects %}
             <div class="col-4">
                 <div class="card">
-                    <img src="{{i.image.url}}" class="card-img-top" alt="...">
+                    <img src="{{i.image.url}}" height="300" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">{{i.title}}</h5>
-                        <p class="card-text">{{i.sub_title}}</p>
+                        <p class="card-text">{{i.sub_title|default:'....'}}</p>
+                        <p class="card-text">{{i.tag}}</p>
                         <a href="#" class="btn btn-primary">Go somewhere</a>
                     </div>
                 </div>

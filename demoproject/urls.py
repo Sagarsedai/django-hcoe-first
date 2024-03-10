@@ -3,11 +3,11 @@ from django.urls import path, include
 
 urlpatterns = [
     path("", include("blogs.urls")),
+    #
     path("admin/", admin.site.urls),
 ]
 
 from demoproject import settings
-
 from django.conf.urls.static import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
