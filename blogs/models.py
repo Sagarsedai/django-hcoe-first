@@ -1,5 +1,6 @@
 from django.db import models
 import uuid
+from tinymce import models as tmc_model
 
 
 class BlogTag(models.Model):
@@ -14,6 +15,17 @@ class BlogTag(models.Model):
         return self.name
 
 
+class BlogAuthors(models.Model):
+    author = models.CharField(max_length=100)
+
+    class Meta:
+        verbose_name = "Blog Author"
+        verbose_name_plural = "Blog Author(s)"
+
+    def __str__(self) -> str:
+        return self.author
+
+
 class Blog(models.Model):
 
     title = models.CharField(max_length=255)
@@ -21,12 +33,18 @@ class Blog(models.Model):
     sub_title = models.CharField(max_length=500, null=True, blank=True)
 
     image = models.ImageField()
-    description = models.TextField()
+    description = tmc_model.HTMLField()
 
     tag = models.ForeignKey(
         BlogTag,
         on_delete=models.PROTECT,
         related_name="blogs",
+    )
+
+    authors = models.ManyToManyField(
+        BlogAuthors,
+        blank=True,
+        related_name="authors_blogs",
     )
 
     class Meta:

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <img src="{{object.image.url}}" height="300" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">{{object.title}}</h5>
+                    <p class="card-text">{{object.sub_title|default:'....'}}</p>
+                    <p class="card-text">{{object.tag}}</p>
+                    <p class="card-text">
+                        {% for j in object.authors.all %}
+                        <strong class="border p-2 border-success border-2">{{j.author}}</strong>
+                        {% endfor %}
+                    </p>
+
+                    {{object.description|safe}}
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

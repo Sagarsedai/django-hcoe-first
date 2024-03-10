@@ -5,6 +5,7 @@ urlpatterns = [
     path("", include("blogs.urls")),
     #
     path("admin/", admin.site.urls),
+    path("tinymce/", include("tinymce.urls")),
 ]
 
 from demoproject import settings
